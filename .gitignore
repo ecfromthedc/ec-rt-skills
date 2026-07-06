@@ -1,0 +1,28 @@
+# Rust build artifacts
+target/
+**/*.rs.bk
+Cargo.lock          # binaries; keep out of shared skill repo (regenerate per-user)
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local state — NEVER commit (contains real run data / counts)
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+.workload-ledger/
+.curation-ledger/
+.fleet-sentinel/
+
+# Local env / secrets — NEVER commit
+.env
+.env.*
+*.env
+config/local.*
+
+# OS
+.DS_Store

@@ -1,0 +1,88 @@
+{
+  "_comment": "Expected checker results for the seed corpus. A rubric change is only safe if all rows still match. 'violations' = minimum count; the checker may find more on a dirty artifact, which is fine \u2014 the contract is: clean=PASS, dirty=FAIL with at least the planted rule_ids fired.",
+  "corpus": [
+    {
+      "artifact": "clean-caption-on-voice.md",
+      "rubric": "brand-voice",
+      "expected_verdict": "PASS",
+      "violations": 0,
+      "must_fire_rule_ids": [],
+      "must_not_fire_rule_ids": [
+        "no-promo-language",
+        "no-emoji-clutter",
+        "hook-in-first-line",
+        "single-pov",
+        "on-brand-subject",
+        "mon-cta-required"
+      ]
+    },
+    {
+      "artifact": "clean-creator-list.md",
+      "rubric": "creator-list",
+      "expected_verdict": "PASS",
+      "violations": 0,
+      "must_fire_rule_ids": [],
+      "must_not_fire_rule_ids": [
+        "no-blacklisted-creator",
+        "identifiable-creator",
+        "no-duplicate-creators"
+      ]
+    },
+    {
+      "artifact": "dirty-creator-blacklisted.md",
+      "rubric": "creator-list",
+      "expected_verdict": "FAIL",
+      "violations": 2,
+      "must_fire_rule_ids": [
+        "no-blacklisted-creator",
+        "identifiable-creator"
+      ],
+      "evidence_must_contain": [
+        "example-blacklisted-ghosted",
+        "Ghosted"
+      ]
+    },
+    {
+      "artifact": "dirty-budget-no-sum.md",
+      "rubric": "campaign-budget",
+      "expected_verdict": "FAIL",
+      "violations": 1,
+      "must_fire_rule_ids": [
+        "budget-sums"
+      ],
+      "evidence_must_contain": [
+        "13300",
+        "14500"
+      ]
+    },
+    {
+      "artifact": "dirty-caption-off-voice.md",
+      "rubric": "brand-voice",
+      "expected_verdict": "FAIL",
+      "violations": 3,
+      "must_fire_rule_ids": [
+        "no-promo-language",
+        "no-emoji-clutter",
+        "hook-in-first-line",
+        "single-pov"
+      ],
+      "evidence_must_contain": [
+        "BANGER"
+      ]
+    },
+    {
+      "artifact": "dirty-batch-format-fingerprint.md",
+      "rubric": "platform-compliance",
+      "expected_verdict": "FAIL",
+      "violations": 3,
+      "must_fire_rule_ids": [
+        "anchor-rotation",
+        "no-master-prompt-fingerprint",
+        "no-duplicate-captions"
+      ],
+      "evidence_must_contain": [
+        "truck-dusk-field"
+      ]
+    }
+  ]
+}
