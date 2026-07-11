@@ -133,7 +133,7 @@ fn parse_iso(s: &str) -> Option<NaiveDateTime> {
 
 fn iso_week_of(ts: &str) -> Option<String> {
     // ts looks like 2026-07-06T12:00:00Z
-    let date = NaiveDate::parse_from_str(&ts.get(..10)?, "%Y-%m-%d").ok()?;
+    let date = NaiveDate::parse_from_str(ts.get(..10)?, "%Y-%m-%d").ok()?;
     let iso = date.iso_week();
     Some(format!("{:04}-W{:02}", iso.year(), iso.week()))
 }
@@ -262,7 +262,7 @@ fn cmd_report(conn: &Connection, week: Option<&str>, pipeline: Option<&str>, slo
     // Human table
     let flagged = out.iter().filter(|r| r.under_curating).count();
     println!("\n  CURATION REPORT  (ship-rate = shipped / generated; > {:.0}% = under-curating / slop risk)", slop_threshold * 100.0);
-    println!("  {:<18} {:<22} {:<10} {:>9} {:>8} {:>9}  {}", "pipeline", "page", "week", "generated", "shipped", "ship%", "flag");
+    println!("  {:<18} {:<22} {:<10} {:>9} {:>8} {:>9}  flag", "pipeline", "page", "week", "generated", "shipped", "ship%");
     println!("  {:-<18} {:-<22} {:-<10} {:-<9} {:-<8} {:-<9}  ----", "", "", "", "", "", "");
     for r in &out {
         let wk = r.week.clone().unwrap_or_else(|| "all-time".into());

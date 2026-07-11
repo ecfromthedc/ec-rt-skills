@@ -43,8 +43,9 @@ Each component has a verified run command in its `AGENTS.md`. The headline check
 cd curation-ledger && cargo test --release      # 6 tests
 cd workload-ledger && cargo test --release      # 6 tests
 
-# Checker — validate the seed corpus against the rubrics
-ls checker/seeds/ && cat checker/seeds/expected-results.json   # 6 seeds, expected verdicts
+# Checker — validate fixtures in CI, then run the blind real-model evaluation
+python3 checker/eval.py --validate
+python3 checker/eval.py                                      # requires authenticated codex CLI
 
 # Python jobs — dry-run (write nothing)
 python3 ops-exhaust/ops-exhaust-drafts.py --dry-run
