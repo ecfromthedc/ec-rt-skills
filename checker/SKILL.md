@@ -83,17 +83,13 @@ JSON (`--format json`) — same fields, machine-readable:
 - **Rubric is the contract.** If a rule is ambiguous, mark FAIL with `evidence: "rule ambiguous — needs rubric author"` rather than guessing generous. Ambiguity is a rubric bug; surface it.
 
 ## Validation (run when installing or editing a rubric)
-Seed artifacts live in `~/.claude/skills/checker/seeds/`. To confirm a rubric fires correctly:
+Seed artifacts and expected verdicts live in `checker/seeds/`.
 ```bash
-# Each pair is <artifact>.md + expected-<artifact>.json. Run all and diff.
-for f in ~/.claude/skills/checker/seeds/*.md; do
-  name=$(basename "$f" .md)
-  [ "$name" = "expected-${name}" ] && continue
-  echo "=== $name ==="
-  # invoke checker with the appropriate rubric per expected-*.json's "rubric" field
-done
+python3 checker/eval.py --validate                         # fixture contract only; runs in CI
+python3 checker/eval.py                                    # blind real-model evaluation of all seeds
+python3 checker/eval.py --case dirty-budget-no-sum.md      # one seed
 ```
-Expected results are in `expected-*.json` next to each seed. A rubric change is only safe if the full seed corpus still matches expectations.
+The real evaluator requires an authenticated `codex` CLI. It strips answer-key metadata from artifacts, grades each seed in an isolated read-only session, and compares the structured result to `seeds/expected-results.json`. A rubric change is only safe if the full seed corpus still matches expectations.
 
 ## Reference paths
 - Rubrics: `~/Documents/Obsidian Vault/Rising Tides OS/Reference/rubrics/`

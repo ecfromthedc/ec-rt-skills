@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - run: python3 checker/eval.py --validate
+      - run: python3 -m py_compile checker/eval.py ops-exhaust/ops-exhaust-drafts.py skill-tuner/skill-tuner.py shared-helpers/workload_ledger.py shared-helpers/mondistro-heartbeat-ledger.py
+      - run: bash -n shared-helpers/morning-brief-ledger-wrap.sh
+      - run: cargo test --release --manifest-path curation-ledger/Cargo.toml
+      - run: cargo test --release --manifest-path workload-ledger/Cargo.toml
+      - run: cargo clippy --all-targets --manifest-path curation-ledger/Cargo.toml -- -D warnings
+      - run: cargo clippy --all-targets --manifest-path workload-ledger/Cargo.toml -- -D warnings

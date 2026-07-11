@@ -31,7 +31,6 @@ STATUS="ok"
 WROTE_OBSIDIAN="$(echo "$OUT" | grep -c 'Written to\|Also written to' || true)"
 
 # Log the run via the Python helper (best-effort, never crashes the wrapper).
-python3 "$HERE/workload_ledger.py" >/dev/null 2>&1 || true  # ensure helper importable
 python3 - "$JOB" "$START_ISO" "$FINISH_ISO" "$DUR_MS" "$STATUS" "$WROTE_OBSIDIAN" "$RC" <<'PYEOF'
 import json, subprocess, sys
 from pathlib import Path

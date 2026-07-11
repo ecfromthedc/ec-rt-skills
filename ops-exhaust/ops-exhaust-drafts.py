@@ -46,15 +46,15 @@ ARTIST_NAME = os.environ.get("OPS_EXHAUST_ARTIST", "[ARTIST]")
 # writes. Schema expected: snapshots, tracks, tour_shows, stat_series, meta_ads_campaigns.
 DASHBOARD_DB = Path(os.environ.get(
     "OPS_EXHAUST_DASHBOARD_DB",
-    str(HOME / "Projects" / "active" / "artist-dashboard" / "data" / "dashboard.db"),
+    str(HOME / "Projects" / "active" / "rt-monrovia-dashboard" / "data" / "monrovia.db"),
 ))
 POSTIZ_PERF = Path(os.environ.get(
     "OPS_EXHAUST_POSTIZ_PERF",
-    str(HOME / "Documents" / "Development" / "postiz" / "data" / "logs" / "performance-snapshots.jsonl"),
+    str(HOME / "Documents" / "Development" / "Postiz Posting Agent" / "data" / "logs" / "performance-snapshots.jsonl"),
 ))
 REVIEW_QUEUE_ROOT = Path(os.environ.get(
     "OPS_EXHAUST_REVIEW_QUEUE",
-    str(HOME / "Documents" / "Obsidian Vault" / "Review Queue"),
+    str(HOME / "Documents" / "Obsidian Vault" / "Rising Tides OS" / "Review Queue"),
 ))
 TODAY = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 

@@ -205,7 +205,7 @@ fn cmd_query(conn: &Connection, job: Option<&str>, since: Option<&str>, status: 
         args.push(s.to_string());
     }
     if let Some(st) = status {
-        sql.push_str(&format!("AND status = ?{} ", idx)); idx += 1;
+        sql.push_str(&format!("AND status = ?{} ", idx));
         args.push(st.to_string());
     }
     sql.push_str("ORDER BY started_at DESC LIMIT ?");
@@ -237,7 +237,7 @@ fn cmd_query(conn: &Connection, job: Option<&str>, since: Option<&str>, status: 
         println!("(no runs match)");
         return Ok(());
     }
-    println!("{:>5}  {:<24} {:<22} {:>10}  {:<7}  {}", "id", "job", "started", "dur(ms)", "status", "outputs (truncated)");
+    println!("{:>5}  {:<24} {:<22} {:>10}  {:<7}  outputs (truncated)", "id", "job", "started", "dur(ms)", "status");
     for r in &collected {
         let out_str = if full {
             serde_json::to_string_pretty(&r.outputs).unwrap_or_default()
@@ -307,7 +307,7 @@ fn cmd_stats(conn: &Connection, since: Option<&str>, as_json: bool) -> Result<()
     }
     println!("\n  WORKLOAD LEDGER STATS{}  — {} total runs", since.map(|s| format!(" since {}", s)).unwrap_or_default(), out.total_runs);
     println!("  by status: {:?}", out.by_status);
-    println!("  {:<24} {:>6} {:>11} {:>11} {:<8}  {}", "job", "count", "avg ms", "errors", "last", "last run");
+    println!("  {:<24} {:>6} {:>11} {:>11} {:<8}  last run", "job", "count", "avg ms", "errors", "last");
     for j in &out.by_job {
         println!("  {:<24} {:>6} {:>11.0} {:>11} {:<8}  {}", trunc(&j.job_label,24), j.count, j.avg_duration_ms, j.error_count, j.last_status, j.last_run.get(..19).unwrap_or(&j.last_run));
     }
