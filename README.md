@@ -8,6 +8,7 @@ These were built for a specific music-marketing stack (Rising Tides) but the pie
 
 | Component | Lang | What it does |
 |---|---|---|
+| **`port-audit/`** | skill (markdown) | Compares an original and cross-language port using repo-native fixtures, then returns a cutover verdict. |
 | **`checker/`** | skill (markdown) | Independent content-gate agent. Takes an artifact + a rubric, returns PASS/FAIL with named, quoted violations. The "checker" half of a maker/checker split. |
 | **`curation-ledger/`** | Rust CLI | Tracks the generated→shipped ratio per pipeline/page/week. Flags pages shipping >60% of what they generate (under-curating / slop risk). |
 | **`workload-ledger/`** | Rust lib + CLI | Append-only structured run log for every fleet job — the "moat." Schema is deliberately boring and FROZEN. |
@@ -54,6 +55,7 @@ python3 skill-tuner/skill-tuner.py --dry-run --days 1
 
 ## Layout
 ```
+port-audit/                   # source-vs-port parity and cutover audit
 checker/                      # the content-gate skill
   SKILL.md                    # how to invoke /checker <artifact> <rubric>
   rubrics/                    # the 4 rubric files (templates with placeholders)

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Port Audit"
+  short_description: "Prove source-to-port behavior parity"
+  default_prompt: "Use $port-audit to assess this port against its source and identify the repo-native parity evidence it needs."
